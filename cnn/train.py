@@ -16,7 +16,8 @@ class DS(Dataset):
 
     def _to_array(self, sample: Sample) -> torch.Tensor:
         img = sample.read()
-        return torch.tensor(np.array(img.resize((224, 224))).transpose(2, 0, 1))
+        arr = np.array(img.resize((224, 224)).convert("RGB"))
+        return torch.tensor(arr.transpose(2, 0, 1)) / 255
 
     def __getitem__(self, ix: int):
         return {
@@ -33,9 +34,12 @@ def main():
 
     for batch in train_loader:
 
-        vgg.forward(batch["image"])
+        pred = vgg.forward(batch["image"])
+        print(pred.shape)
 
-        break
+        loss = torch.sum(-torch.log(torch.exp(pred)) / torch.sum(torch.exp(pred))) 
+
+        print(loss)
 
 
 if __name__ == "__main__":
