@@ -58,10 +58,3 @@ def read_labels() -> dict[str, int]:
         return {
             r["id"]: get_klass(r) for r in csv.DictReader(f)
         }
-
-
-def main():
-    pass
-
-if __name__ == "__main__":
-    main()
