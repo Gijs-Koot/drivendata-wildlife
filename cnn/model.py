@@ -66,7 +66,7 @@ class VGG(torch.nn.Module):
             ReLU(),
             Linear(4096, 4096),
             ReLU(),
-            Linear(4096, 1000)
+            Linear(4096, 10)
         )
 
         self.features = Sequential(

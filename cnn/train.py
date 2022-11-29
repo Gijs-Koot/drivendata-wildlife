@@ -32,14 +32,23 @@ def main():
     train_set = DS([*read_ds("train")])
     train_loader = DataLoader(train_set, 2)
 
+    for param in vgg.parameters():
+        param.requires_grad = True
+
+    optimizer = torch.optim.SGD(vgg.parameters(), lr=1e-3)
+    loss_func = torch.nn.CrossEntropyLoss()
+
     for batch in train_loader:
 
         pred = vgg.forward(batch["image"])
-        print(pred.shape)
 
-        loss = torch.sum(-torch.log(torch.exp(pred)) / torch.sum(torch.exp(pred))) 
+        loss = loss_func(pred, batch["label"])
 
-        print(loss)
+        print(loss.item())
+
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
 
 
 if __name__ == "__main__":

@@ -6,9 +6,9 @@ authors = ["Gijs Koot <gijs@spotr.ai>"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
-torch = "^1.13.0"
 Pillow = "^9.3.0"
 numpy = "^1.23.5"
+torch = "^1.13.0"
 
 [tool.poetry.dev-dependencies]
 black = "^22.10.0"
